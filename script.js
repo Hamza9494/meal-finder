@@ -37,15 +37,25 @@ function getMealByID(id) {
     .then((res) => res.json())
     .then((data) => {
       const meal = data.meals[0];
-      console.log(meal);
+      addMealToDOM(meal);
+    });
+}
+
+//fetch random meal
+function getRandomMeal() {
+  meals.innerHTML = '';
+  fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((res) => res.json())
+    .then((data) => {
+      const meal = data.meals[0];
       addMealToDOM(meal);
     });
 }
 
 //add meal to DOM
 function addMealToDOM(meal) {
+  meals.innerHTML = '';
   const ingredients = [];
-  console.log(meal);
 
   for (let i = 1; i <= 20; i++) {
     if (meal[`strIngredient${i}`]) {
@@ -76,15 +86,25 @@ function addMealToDOM(meal) {
 }
 //event listenrs
 form.addEventListener('submit', FetchMeals);
+randomBtn.addEventListener('click', getRandomMeal);
 
 meals.addEventListener('click', (e) => {
-  const mealInfo = e.composedPath().find((item) => {
+  /* const mealInfo = e.composedPath().find((item) => {
     if (item.classList) {
       return item.classList.contains('meal-info');
     } else {
       return false;
     }
   });
+  if (mealInfo) {
+    const mealID = mealInfo.getAttribute('data-idmeal');
+    getMealByID(mealID);
+  } */
+  let mealInfo;
+  if (e.target.classList.contains('meal-info')) {
+    mealInfo = e.target;
+    console.log(mealInfo);
+  }
   if (mealInfo) {
     const mealID = mealInfo.getAttribute('data-idmeal');
     getMealByID(mealID);
