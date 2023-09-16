@@ -89,17 +89,6 @@ form.addEventListener('submit', FetchMeals);
 randomBtn.addEventListener('click', getRandomMeal);
 
 meals.addEventListener('click', (e) => {
-  /* const mealInfo = e.composedPath().find((item) => {
-    if (item.classList) {
-      return item.classList.contains('meal-info');
-    } else {
-      return false;
-    }
-  });
-  if (mealInfo) {
-    const mealID = mealInfo.getAttribute('data-idmeal');
-    getMealByID(mealID);
-  } */
   let mealInfo;
   if (e.target.classList.contains('meal-info')) {
     mealInfo = e.target;
